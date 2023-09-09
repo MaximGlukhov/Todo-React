@@ -1,0 +1,14 @@
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: azure;
+    margin-bottom: 10px;
+}
+
+.btnsWrap {
+    display: flex;
+    gap: 10px;
+}
