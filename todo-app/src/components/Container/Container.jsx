@@ -2,26 +2,43 @@ import React, {useState} from "react";
 import styles from "./container.module.css";
 import Form from "../Form/Form";
 import TodoList from "../TodoList/TodoList";
+import {useLocalStorage} from "../../hooks/useLocalStorage";
 
 function Container() {
-    const [items, setItems] = useState([
-        {id: 1, body: "Купить колбасу"},
-        {id: 2, body: "Купить хлеб"},
-        {id: 3, body: "Купить масло"},
-    ]);
+    function getTodosFromLocalStorage() {
+        let todosFromLocalStorage = localStorage.getItem("list");
+        return todosFromLocalStorage && JSON.parse(todosFromLocalStorage);
+    }
 
-    const createItem = newItem => {
+    let todos = getTodosFromLocalStorage();
+
+    const [items, setItems] = useState(todos);
+
+    useLocalStorage("list", items);
+
+    const createItem = (newItem) => {
         setItems([...items, newItem]);
     };
 
-    const deleteItem = item => {
-        setItems(items.filter(i => i.id !== item.id));
+    const addFinish = (item) => {
+        setItems(
+            items.map((i) =>
+                i.id === item.id && i.value === false ? {...i, value: true} : i.id === item.id && i.value === true ? {...i, value: false} : i
+            )
+        );
+    };
+
+    const removeItem = (item) => {
+        setItems(items.filter((i) => i.id !== item.id));
     };
 
     return (
         <div className={styles.container}>
             <Form create={createItem}></Form>
-            <TodoList remove={deleteItem} list={items}></TodoList>
+            <TodoList
+                finish={addFinish}
+                remove={removeItem}
+                list={items}></TodoList>
         </div>
     );
 }

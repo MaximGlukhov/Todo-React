@@ -8,6 +8,10 @@
     margin-bottom: 10px;
 }
 
+.item.itemActive span {
+    text-decoration: line-through;
+}
+
 .btnsWrap {
     display: flex;
     gap: 10px;

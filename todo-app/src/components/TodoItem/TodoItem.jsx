@@ -3,15 +3,17 @@ import styles from "./todoItem.module.css";
 import ButtonAdd from "./ButtonAdd/ButtonAdd";
 import ButtonDelete from "./ButtonDelete/ButtonDelete";
 
-const TodoItem = props => {
+const TodoItem = ({body, number, list, value, ...props}) => {
     return (
-        <li className={styles.item}>
+        <li
+            value={value}
+            className={value ? `${styles.itemActive} ${styles.item}` : `${styles.item}`}>
             <span>
-                {props.number}. {props.body}
+                {number}. {body}
             </span>
 
             <div className={styles.btnsWrap}>
-                <ButtonAdd></ButtonAdd>
+                <ButtonAdd onClick={() => props.finish(props.item)}></ButtonAdd>
                 <ButtonDelete onClick={() => props.remove(props.item)}></ButtonDelete>
             </div>
         </li>
