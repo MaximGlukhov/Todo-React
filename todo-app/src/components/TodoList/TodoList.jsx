@@ -1,15 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import TodoItem from "../TodoItem/TodoItem";
 import styles from "./todoList.module.css";
+import {ListContext} from "../../context/ListContext";
 
-function TodoList({list, remove, finish}) {
+export function TodoList({finish}) {
+    const list = useContext(ListContext);
+
     localStorage.setItem("list", JSON.stringify(list));
     return (
-        <ul className={styles.list}>
+        <ul className={styles.listTodo}>
             {list.map((item, index) => (
                 <TodoItem
                     finish={finish}
-                    remove={remove}
                     key={item.id}
                     number={index + 1}
                     body={item.body}
@@ -19,5 +21,3 @@ function TodoList({list, remove, finish}) {
         </ul>
     );
 }
-
-export default TodoList;

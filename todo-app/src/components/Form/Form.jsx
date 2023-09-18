@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import styles from "./form.module.css";
 import Input from "./Input/Input";
 import Button from "./Button/Button";
-import {useLocalStorage} from "../../hooks/useLocalStorage";
+import {getStorageValue} from "../../utils/getStorageValue";
 
 function Form({create}) {
-    const [item, setItem] = useLocalStorage("input", {body: ""});
+    let inputData = getStorageValue("input", {body: ""});
+    const [item, setItem] = useState(inputData);
 
     const addNewItem = (e) => {
         e.preventDefault();
@@ -16,16 +17,17 @@ function Form({create}) {
         };
         create(newItem);
         setItem({body: ""});
+        localStorage.setItem("input", JSON.stringify({body: ""}));
     };
+
+    function inputValue(event) {
+        setItem({...item, body: event.target.value});
+        localStorage.setItem("input", JSON.stringify({body: event.target.value}));
+    }
 
     return (
         <form className={styles.form}>
-            <Input
-                value={item.body}
-                onChange={(event) => setItem({...item, body: event.target.value})}
-                type="text"
-                placeholder="Название дела"
-            />
+            <Input value={item.body} onChange={inputValue} type="text" placeholder="Название дела" />
             <Button onClick={addNewItem}>Создать</Button>
         </form>
     );

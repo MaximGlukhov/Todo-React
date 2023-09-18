@@ -3,7 +3,7 @@ import styles from "./todoItem.module.css";
 import ButtonAdd from "./ButtonAdd/ButtonAdd";
 import ButtonDelete from "./ButtonDelete/ButtonDelete";
 
-const TodoItem = ({body, number, list, value, ...props}) => {
+const TodoItem = ({body, number, value, ...props}) => {
     return (
         <li
             value={value}
