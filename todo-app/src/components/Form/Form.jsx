@@ -27,7 +27,12 @@ function Form({create}) {
 
     return (
         <form className={styles.form}>
-            <Input value={item.body} onChange={inputValue} type="text" placeholder="Название дела" />
+            <Input
+                value={item.body}
+                onChange={inputValue}
+                type="text"
+                placeholder="Название дела"
+            />
             <Button onClick={addNewItem}>Создать</Button>
         </form>
     );

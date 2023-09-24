@@ -3,7 +3,7 @@ import TodoItem from "../TodoItem/TodoItem";
 import styles from "./todoList.module.css";
 import {ListContext} from "../../context/ListContext";
 
-export function TodoList({finish}) {
+export function TodoList({finish, remove}) {
     const list = useContext(ListContext);
 
     localStorage.setItem("list", JSON.stringify(list));
@@ -11,6 +11,7 @@ export function TodoList({finish}) {
         <ul className={styles.listTodo}>
             {list.map((item, index) => (
                 <TodoItem
+                    remove={remove}
                     finish={finish}
                     key={item.id}
                     number={index + 1}
